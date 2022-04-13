@@ -1,15 +1,21 @@
 import React from 'react';
-import ReactDOM from 'react-dom';
+import ReactDOM from 'react-dom/client';
 import './index.css';
 import App from './App';
 import * as serviceWorkerRegistration from './serviceWorkerRegistration';
 import reportWebVitals from './reportWebVitals';
+import { AuthProvider } from "./provider/AuthProvider";
 
-ReactDOM.render(
+const rootElement = document.getElementById("root");
+if (rootElement === null) throw new Error('Root container missing in index.html')
+	
+const root = ReactDOM.createRoot(rootElement);
+root.render(
   <React.StrictMode>
-    <App />
-  </React.StrictMode>,
-  document.getElementById('root')
+    <AuthProvider>
+      <App />
+    </AuthProvider>
+  </React.StrictMode>
 );
 
 // If you want your app to work offline and load faster, you can change
