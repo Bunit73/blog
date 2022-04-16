@@ -3,20 +3,19 @@ import { BaseFunctionComponent } from "../common/BaseComponent";
 import { Timestamp, collection, addDoc } from "firebase/firestore";
 import { ref, uploadBytesResumable, getDownloadURL } from "firebase/storage";
 import { storage, db } from "../config/firebaseConfig";
-import {useContext, useState} from "react";
+import {useContext, useRef, useState} from "react";
 import {AuthContext} from "../contexts/AuthContext";
 import { Link } from "react-router-dom";
+import {Article} from "../models/Article";
+import { Editor } from '@tinymce/tinymce-react';
+import {Helpers} from "../common/Helpers";
 
 
 const AddArticle: BaseFunctionComponent<{}> = props => {
     const user = useContext(AuthContext);
 
-    const [formData, setFormData] = useState({
-        title: "",
-        description: "",
-        image: Blob,
-        createdAt: Timestamp.now().toDate(),
-    });
+    const [formData, setFormData] = useState(new Article());
+    const [imageData, setImageData] = useState(new Blob());
 
     const [progress, setProgress] = useState(0);
 
@@ -24,22 +23,30 @@ const AddArticle: BaseFunctionComponent<{}> = props => {
         setFormData({ ...formData, [e.target.name]: e.target.value });
     };
 
+    const handleContentChange = (e: string) => {
+        let form = new Article();
+        Object.assign(form, formData);
+        form.content = e;
+        setFormData(form);
+    };
+
     const handleImageChange = (e: any) => {
-        setFormData({ ...formData, image: e.target.files[0] });
+        setImageData(e.target.files[0]);
+        // setFormData({ ...formData, titleImage: e.target.files[0] });
     };
 
     const handlePublish = () => {
-        if (!formData.title || !formData.description || !formData.image) {
+        if (!formData.title || !formData.content) {
             alert("Please fill all the fields");
             return;
         }
 
         const storageRef = ref(
             storage,
-            `/images/${Date.now()}${formData.image.name}`
+            `/images/${Helpers.guids.createGuid()}`
         );
 
-        const uploadImage = uploadBytesResumable(storageRef, formData.image.prototype);
+        const uploadImage = uploadBytesResumable(storageRef, imageData);
 
         uploadImage.on(
             "state_changed",
@@ -53,23 +60,13 @@ const AddArticle: BaseFunctionComponent<{}> = props => {
                 console.log(err);
             },
             () => {
-                setFormData({
-                    title: "",
-                    description: "",
-                    image: Blob,
-                    createdAt: Timestamp.now().toDate()
-                });
+                // setFormData(new Article());
 
                 getDownloadURL(uploadImage.snapshot.ref).then((url) => {
                     const articleRef = collection(db, "Articles");
-                    addDoc(articleRef, {
-                        title: formData.title,
-                        description: formData.description,
-                        imageUrl: url,
-                        createdAt: Timestamp.now().toDate(),
-                        likes:[],
-                        comments:[]
-                    })
+                    formData.titleImageUrl = url;
+                    console.log(formData)
+                    addDoc(articleRef, {...formData})
                         .then(() => {
                             // toast("Article added successfully", { type: "success" });
                             setProgress(0);
@@ -107,11 +104,25 @@ const AddArticle: BaseFunctionComponent<{}> = props => {
 
                     {/* description */}
                     <label htmlFor="">Description</label>
-                    <textarea
-                        name="description"
-                        className="form-control"
-                        value={formData.description}
-                        onChange={(e) => handleChange(e)}
+                    <Editor
+                        onEditorChange={(e) => {
+                            handleContentChange(e)
+                        }}
+                        value={formData.content}
+                        init={{
+                            height: 500,
+                            menubar: false,
+                            plugins: [
+                                'advlist autolink lists link image charmap print preview anchor',
+                                'searchreplace visualblocks code fullscreen',
+                                'insertdatetime media table paste code help wordcount'
+                            ],
+                            toolbar: 'undo redo | formatselect | ' +
+                                'bold italic backcolor | alignleft aligncenter ' +
+                                'alignright alignjustify | bullist numlist outdent indent | ' +
+                                'removeformat | help',
+                            content_style: 'body { font-family:Helvetica,Arial,sans-serif; font-size:14px }'
+                        }}
                     />
 
                     {/* image */}
