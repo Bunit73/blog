@@ -5,6 +5,7 @@ import App from './App';
 import * as serviceWorkerRegistration from './serviceWorkerRegistration';
 import reportWebVitals from './reportWebVitals';
 import { AuthProvider } from "./provider/AuthProvider";
+import "../node_modules/bootstrap/scss/bootstrap.scss";
 
 const rootElement = document.getElementById("root");
 if (rootElement === null) throw new Error('Root container missing in index.html')

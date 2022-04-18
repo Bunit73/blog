@@ -1,9 +1,10 @@
 import * as React from "react";
 import { BaseFunctionComponent } from "../common/BaseComponent";
+import { Page } from "../common/Page";
 
 const Home: BaseFunctionComponent<{}> = props => {
     return (
-        <div>Home</div>
+        <Page>Home</Page>
 	);
 };
 

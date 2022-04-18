@@ -84,9 +84,8 @@ const AddArticle: BaseFunctionComponent<{}> = props => {
             {!user ? (
                 <>
                     <h2>
-                        <Link to="/signin">Login to create article</Link>
+                        Login Dummy
                     </h2>
-                    Don't have an account? <Link to="/register">Signup</Link>
                 </>
             ) : (
                 <>
