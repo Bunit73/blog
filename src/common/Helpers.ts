@@ -48,6 +48,7 @@ export class Helpers {
     };
 	
 	static fsDb = {
+		// https://medium.com/swlh/using-firestore-with-typescript-65bd2a602945
 		async getArticle(id: string) {
 			const converter = {
 				toFirestore: (data: Article) => data,
@@ -71,7 +72,6 @@ export class Helpers {
 		},
 		async saveArticle(a: Article) {
 				const articleRef = collection(db, "Articles");
-                    console.log(a)
                     addDoc(articleRef, {...a})
                         .then(() => {
 							return a;
