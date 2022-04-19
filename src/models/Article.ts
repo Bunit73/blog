@@ -2,6 +2,7 @@ interface IArticle {
     title: string;
     content: string;
     titleImageUrl: string;
+	titleImageBase: string;
     createdAt: Date;
     tags: string[];
     comments: string[];
@@ -12,6 +13,7 @@ class Article implements  IArticle{
     createdAt: Date;
     title: string;
     titleImageUrl: string;
+	titleImageBase: string;
     tags: string[];
     comments: string[];
 
@@ -20,6 +22,7 @@ class Article implements  IArticle{
         this.createdAt = new Date();
         this.title = "";
         this.titleImageUrl = "";
+		this.titleImageBase = "";
         this.tags = [];
         this.comments = [];
     }

@@ -1,8 +1,21 @@
 import { db } from "../config/firebaseConfig";
 import {Article} from "../models/Article";
 import firebase from 'firebase/compat/app';
+import { Timestamp, collection, addDoc } from "firebase/firestore";
 
 export class Helpers {
+	static files = {
+		fileToBase64(file:File): Promise<string> {
+			//https://stackoverflow.com/questions/36280818/how-to-convert-file-to-base64-in-javascript
+			return new Promise<string> ((resolve,reject)=> {
+				 const reader = new FileReader();
+				 reader.readAsDataURL(file);
+				 reader.onload = () => resolve(reader.result?.toString() || '');
+				 reader.onerror = error => reject(error);
+			 })
+			}
+	};
+	
     static guids = {
         createGuid(): string {
             let result: string;
@@ -56,6 +69,17 @@ export class Helpers {
 				return new Article();
 			}
 		},
+		async saveArticle(a: Article) {
+				const articleRef = collection(db, "Articles");
+                    console.log(a)
+                    addDoc(articleRef, {...a})
+                        .then(() => {
+							return a;
+                        })
+                        .catch((err) => {
+							return err;
+				})
+		}
 	};
 }
 

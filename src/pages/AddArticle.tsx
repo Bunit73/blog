@@ -17,7 +17,7 @@ const AddArticle: BaseFunctionComponent<{}> = props => {
     const user = useContext(AuthContext);
 
     const [formData, setFormData] = useState(new Article());
-    const [imageData, setImageData] = useState(new Blob());
+    // const [imageData, setImageData] = useState(new Blob());
 
     const [progress, setProgress] = useState(0);
 	const [saving, setSaving] = useState(false);
@@ -34,8 +34,13 @@ const AddArticle: BaseFunctionComponent<{}> = props => {
     };
 
     const handleImageChange = (e: any) => {
-        setImageData(e.target.files[0]);
-        // setFormData({ ...formData, titleImage: e.target.files[0] });
+        // setImageData(e.target.files[0]);
+		let form = new Article();
+        Object.assign(form, formData);
+        Helpers.files.fileToBase64(e.target.files[0]).then(d => {
+			form.titleImageBase = d;
+			setFormData(form);	
+		});        
     };
 
     const handlePublish = () => {
@@ -46,8 +51,35 @@ const AddArticle: BaseFunctionComponent<{}> = props => {
             return;
         }
 		
+		Helpers.fsDb.saveArticle(formData)
+		.then(d => {
+			toast.success('Article Added', {
+				position: "top-right",
+				autoClose: 5000,
+				hideProgressBar: true,
+				closeOnClick: true,
+				pauseOnHover: true,
+				draggable: true,
+				progress: 1,
+			});
+			setFormData(new Article());
+		})
+		.catch(err => {
+			toast.error('Error adding article', {
+				position: "top-right",
+				autoClose: 5000,
+				hideProgressBar: false,
+				closeOnClick: true,
+				pauseOnHover: true,
+				draggable: true,
+				progress: undefined,
+			});			
+		})
+		.finally(() => {
+			setSaving(false);
+		});
 		
-        const storageRef = ref(
+        /* const storageRef = ref(
             storage,
             `/images/${Helpers.guids.createGuid()}`
         );
@@ -71,7 +103,6 @@ const AddArticle: BaseFunctionComponent<{}> = props => {
                 getDownloadURL(uploadImage.snapshot.ref).then((url) => {
                     const articleRef = collection(db, "Articles");
                     formData.titleImageUrl = url;
-                    console.log(formData)
                     addDoc(articleRef, {...formData})
                         .then(() => {
 							toast.success('Article Added', {
@@ -101,7 +132,7 @@ const AddArticle: BaseFunctionComponent<{}> = props => {
 						});
                 });
             }
-        );
+        ); */
     };
 
     return (
