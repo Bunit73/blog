@@ -1,3 +1,7 @@
+import { db } from "../config/firebaseConfig";
+import {Article} from "../models/Article";
+import firebase from 'firebase/compat/app';
+
 export class Helpers {
     static guids = {
         createGuid(): string {
@@ -29,6 +33,30 @@ export class Helpers {
             return "00000000-0000-0000-0000-000000000000";
         },
     };
+	
+	static fsDb = {
+		async getArticle(id: string) {
+			const converter = {
+				toFirestore: (data: Article) => data,
+				fromFirestore: (snap: firebase.firestore.QueryDocumentSnapshot) =>
+				snap.data() as Article
+			}
+			
+			const doc = await db
+				.collection('Articles')				
+				.withConverter(converter)
+				.doc(id)				
+				.get();
+			
+			const article = doc.data();
+			
+			if(article){
+				return article;
+			} else {
+				return new Article();
+			}
+		},
+	};
 }
 
 class Guid {

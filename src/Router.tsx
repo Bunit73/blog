@@ -5,6 +5,7 @@ import { Home } from "./pages/Home";
 import { Articles } from "./pages/Articles";
 import { Login } from "./pages/Login";
 import {AddArticle} from "./pages/AddArticle";
+import { Post } from "./pages/Post";
 
 const MainRouter: BaseFunctionComponent<{}> = props => {
     return (
@@ -13,6 +14,7 @@ const MainRouter: BaseFunctionComponent<{}> = props => {
 				<Route path="/" element={<Home/>} />
 				<Route path="/login" element={<Login/>} />
 				<Route path="/articles" element={<Articles/>} />
+				<Route path="/post/:id" element={<Post/>} />
 				<Route path="/add" element={<AddArticle/>} />
 				<Route path="*" element={<div>404</div>} />
 			</Routes>
