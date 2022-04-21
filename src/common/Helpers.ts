@@ -2,8 +2,16 @@ import { db } from "../config/firebaseConfig";
 import {Article} from "../models/Article";
 import firebase from 'firebase/compat/app';
 import { Timestamp, collection, addDoc } from "firebase/firestore";
+import moment from 'moment';
 
 export class Helpers {
+	static dates = {
+		toLocalTime(date: Date): string {
+			console.log(date)
+			return moment(date).format("MMM Do YY");
+		}
+	};
+	
 	static files = {
 		fileToBase64(file:File): Promise<string> {
 			//https://stackoverflow.com/questions/36280818/how-to-convert-file-to-base64-in-javascript

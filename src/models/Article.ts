@@ -1,16 +1,18 @@
+import { Timestamp } from 'firebase/compat/firestore';
+
 interface IArticle {
     title: string;
     content: string;
     titleImageUrl: string;
 	titleImageBase: string;
-    createdAt: Date;
+    createdAt: 	Timestamp;
     tags: string[];
     comments: string[];
 }
 
 class Article implements  IArticle{
     content: string;
-    createdAt: Date;
+    createdAt: 	Timestamp;
     title: string;
     titleImageUrl: string;
 	titleImageBase: string;
@@ -19,7 +21,7 @@ class Article implements  IArticle{
 
     constructor() {
         this.content = "";
-        this.createdAt = new Date();
+        this.createdAt = new Timestamp();
         this.title = "";
         this.titleImageUrl = "";
 		this.titleImageBase = "";

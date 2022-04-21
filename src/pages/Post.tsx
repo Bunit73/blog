@@ -6,7 +6,10 @@ import { Page } from "../common/Page";
 import { db } from "../config/firebaseConfig";
 import {Article} from "../models/Article";
 import {Helpers} from "../common/Helpers";
-import parse from 'html-react-parser'
+import parse from 'html-react-parser';
+import { Header } from "../common/Header";
+import { Nav } from "../common/Nav";
+import "./Post.scss"
 
 const Post: BaseFunctionComponent<{}> = props => {
 	const { id } = useParams();
@@ -18,6 +21,7 @@ const Post: BaseFunctionComponent<{}> = props => {
 			setLoading(true);
 			Helpers.fsDb.getArticle(id ? id : "").then(d => {
 				setArticle(d);
+				console.log(d);
 				setLoading(false);
 			});
 		}
@@ -26,25 +30,31 @@ const Post: BaseFunctionComponent<{}> = props => {
 	
     return (
 		<>
+		<Page>
+			<Header />
+		</Page>
 		{
 			loading ? <>Loading</> : 
-			<>
-			    <div className="row">
-				  <div className="col-3">
-					<img
-					  src={article.titleImageBase}
-					  alt={article.title}
-					  style={{ width: "100%", padding: 10 }}
-					/>
+			<main className="border-top border-dark post p-2">
+				<Page>
+					<div className="mb-4">
+						<h1 className="display-4 fst-italic">{article.title}</h1>
+						<h2 className="lead">Subtitle</h2>
+						<div className="col px-0">
+						  <img
+							  src={article.titleImageBase}
+							  alt={article.title}
+							  className={"rounded hero-img"}
+							/>							
+						</div>
 				  </div>
-				  <div className="col-9 mt-3">
-					<h2>{article.title}</h2>					
-					<hr />
+				</Page>
+				<hr />
+				<Page>
+					<div>{Helpers.dates.toLocalTime(article.createdAt.toDate())}</div>
 					{parse(article.content)}
-				  </div>
-				</div>			
-			</>
-			
+				</Page>
+			</main>			
 		}
 		</>
 	);
