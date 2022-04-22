@@ -35,26 +35,28 @@ const Post: BaseFunctionComponent<{}> = props => {
 		</Page>
 		{
 			loading ? <>Loading</> : 
-			<main className="border-top border-dark post p-2">
-				<Page>
-					<div className="mb-4">
-						<h1 className="display-4 fst-italic">{article.title}</h1>
-						<h2 className="lead">Subtitle</h2>
-						<div className="col px-0">
-						  <img
-							  src={article.titleImageBase}
-							  alt={article.title}
-							  className={"rounded hero-img"}
-							/>							
-						</div>
-				  </div>
-				</Page>
-				<hr />
-				<Page>
-					<div>{Helpers.dates.toLocalTime(article.createdAt.toDate())}</div>
-					{parse(article.content)}
-				</Page>
-			</main>			
+			<Page>
+				<main className="border-top border-dark post p-2 mb-4">
+					<Page>
+						<div className="mb-4">
+							<h1 className="display-4 fst-italic">{article.title}</h1>
+							<h2 className="lead">{article.subtitle}</h2>
+							<div className="col px-0">
+							  <img
+								  src={article.titleImageBase}
+								  alt={article.title}
+								  className={"rounded hero-img"}
+								/>							
+							</div>
+					  </div>
+					</Page>
+					<hr />
+					<Page>
+						<div>{Helpers.dates.toLocalTime(article.createdAt.toDate())}</div>
+						{parse(article.content)}
+					</Page>
+				</main>		
+			</Page>
 		}
 		</>
 	);

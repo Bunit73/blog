@@ -1,5 +1,6 @@
 import { db } from "../config/firebaseConfig";
 import {Article} from "../models/Article";
+import {LookupItem} from "../models/LookupItem";
 import firebase from 'firebase/compat/app';
 import { Timestamp, collection, addDoc } from "firebase/firestore";
 import moment from 'moment';
@@ -23,6 +24,37 @@ export class Helpers {
 			 })
 			}
 	};
+	
+	static lookups = {
+		async getLookupList(listId: string) {
+			let retval: LookupItem[] = [];
+			const converter = {
+				toFirestore: (data: LookupItem) => data,
+				fromFirestore: (snap: firebase.firestore.QueryDocumentSnapshot) =>
+				snap.data() as LookupItem
+			}
+			
+			const docs = await db
+				.collection(listId)				
+				.withConverter(converter)
+				//.doc(id)				
+				.get();
+			
+			docs.forEach((doc) => {
+				retval.push(doc.data());
+			});
+			
+			console.log(retval);
+			
+			// const article = doc.data();
+			
+			/*if(article){
+				return article;
+			} else {
+				return new Article();
+			}*/
+		},
+	}
 	
     static guids = {
         createGuid(): string {

@@ -4,7 +4,7 @@ import { Timestamp, collection, addDoc } from "firebase/firestore";
 import { ref, uploadBytesResumable, getDownloadURL } from "firebase/storage";
 import { storage, db } from "../config/firebaseConfig";
 import { Config} from "../config/Config";
-import {useContext, useRef, useState} from "react";
+import {useContext, useRef, useState, useEffect} from "react";
 import {AuthContext} from "../contexts/AuthContext";
 import { Link } from "react-router-dom";
 import {Article} from "../models/Article";
@@ -15,6 +15,10 @@ import { toast } from 'react-toastify';
 
 const AddArticle: BaseFunctionComponent<{}> = props => {
     const user = useContext(AuthContext);
+	
+	useEffect(() => {
+		Helpers.lookups.getLookupList("Tags");
+	}, [])
 
     const [formData, setFormData] = useState(new Article());
     // const [imageData, setImageData] = useState(new Blob());
@@ -144,7 +148,7 @@ const AddArticle: BaseFunctionComponent<{}> = props => {
                     </h2>
                 </>
             ) : (
-                <>
+                <div className="w-100">
 					<div
 						className="row"
 					>
@@ -167,6 +171,20 @@ const AddArticle: BaseFunctionComponent<{}> = props => {
 							/>
 						</div>
 					</div>
+					<div
+						className="row mt-4"
+					>
+						<div className="col">
+							<label htmlFor="floatingInput">Sub Title</label>
+							<textarea 
+								id="subtitle" 
+								name="subtitle"
+								className="form-control"
+								value={formData.subtitle}
+								onChange={(e) => handleChange(e)}
+							/>
+						</div>
+					</div>
                     {/* description */}
 					<div
 						className="row mt-4"
@@ -181,16 +199,9 @@ const AddArticle: BaseFunctionComponent<{}> = props => {
 								init={{
 									apiKey: Config.tinyApiKey,
 									height: 500,
-									menubar: false,
-									plugins: [
-										'advlist autolink lists link image charmap print preview anchor',
-										'searchreplace visualblocks code fullscreen',
-										'insertdatetime media table paste code help wordcount'
-									],
-									toolbar: 'undo redo | formatselect | ' +
-										'bold italic backcolor | alignleft aligncenter ' +
-										'alignright alignjustify | bullist numlist outdent indent | ' +
-										'removeformat | help',
+									menubar: 'tools',
+									plugins: 'code',
+									toolbar: 'code',
 									content_style: 'body { font-family:Helvetica,Arial,sans-serif; font-size:14px }'
 								}}
 							/>
@@ -227,7 +238,7 @@ const AddArticle: BaseFunctionComponent<{}> = props => {
 							</button>
 						</div>
 					</div>
-                </>
+                </div>
             )}
         </Page>
     );
