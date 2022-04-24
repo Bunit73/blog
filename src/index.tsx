@@ -4,11 +4,11 @@ import './index.css';
 import App from './App';
 import * as serviceWorkerRegistration from './serviceWorkerRegistration';
 import reportWebVitals from './reportWebVitals';
-import { AuthProvider } from "./provider/AuthProvider";
+import { AuthProvider } from './provider/AuthProvider';
 
-const rootElement = document.getElementById("root");
-if (rootElement === null) throw new Error('Root container missing in index.html')
-	
+const rootElement = document.getElementById('root');
+if (rootElement === null) throw new Error('Root container missing in index.html');
+
 const root = ReactDOM.createRoot(rootElement);
 root.render(
   <React.StrictMode>
