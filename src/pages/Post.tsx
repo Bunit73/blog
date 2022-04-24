@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from 'react';
 import { useParams } from 'react-router-dom';
 import { BaseFunctionComponent } from '../common/BaseComponent';
-import { Page } from '../common/Page';
+import { Container } from '../common/Container';
 import { Article } from '../models/Article';
 import { Helpers } from '../common/Helpers';
 import parse from 'html-react-parser';
@@ -26,15 +26,15 @@ const Post: BaseFunctionComponent = () => {
 
   return (
     <>
-      <Page>
+      <Container>
         <Header />
-      </Page>
+      </Container>
       {loading ? (
         <>Loading</>
       ) : (
-        <Page>
+        <Container>
           <main className="border-top border-dark post p-2 mb-4">
-            <Page>
+            <Container>
               <div className="mb-4">
                 <h1 className="display-4 fst-italic">{article.title}</h1>
                 <h2 className="lead">{article.subtitle}</h2>
@@ -46,14 +46,14 @@ const Post: BaseFunctionComponent = () => {
                   />
                 </div>
               </div>
-            </Page>
+            </Container>
             <hr />
-            <Page>
+            <Container>
               <div>{Helpers.dates.toLocalTime(article.createdAt.toDate())}</div>
               {parse(article.content)}
-            </Page>
+            </Container>
           </main>
-        </Page>
+        </Container>
       )}
     </>
   );

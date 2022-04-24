@@ -6,7 +6,7 @@ import { BaseFunctionComponent } from '../common/BaseComponent';
 import { AuthContext } from '../contexts/AuthContext';
 import './Login.scss';
 import { toast } from 'react-toastify';
-import { Page } from '../common/Page';
+import { Container } from '../common/Container';
 
 const Login: BaseFunctionComponent = () => {
   const user = useContext(AuthContext);
@@ -48,7 +48,7 @@ const Login: BaseFunctionComponent = () => {
   };
 
   return (
-    <Page>
+    <Container>
       <div className="text-center">
         <main className="form-signin">
           {!user ? (
@@ -89,7 +89,7 @@ const Login: BaseFunctionComponent = () => {
           )}
         </main>
       </div>
-    </Page>
+    </Container>
   );
 };
 

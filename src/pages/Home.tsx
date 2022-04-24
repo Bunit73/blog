@@ -1,17 +1,17 @@
 import { BaseFunctionComponent } from '../common/BaseComponent';
-import { Page } from '../common/Page';
+import { Container } from '../common/Container';
 import { Header } from '../common/Header';
 import { Nav } from '../common/Nav';
 
 const Home: BaseFunctionComponent = () => {
   return (
     <>
-      <Page>
+      <Container>
         <Header />
         <Nav />
-      </Page>
+      </Container>
       <main>
-        <Page>
+        <Container>
           <div className="p-4 p-md-5 mb-4 text-white rounded bg-dark">
             <div className="col-md-6 px-0">
               <h1 className="display-4 fst-italic">Title of a longer featured blog post</h1>
@@ -21,7 +21,7 @@ const Home: BaseFunctionComponent = () => {
               </p>
             </div>
           </div>
-        </Page>
+        </Container>
       </main>
     </>
   );

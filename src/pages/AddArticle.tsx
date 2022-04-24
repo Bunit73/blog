@@ -6,7 +6,7 @@ import { AuthContext } from '../contexts/AuthContext';
 import { Article } from '../models/Article';
 import { Editor } from '@tinymce/tinymce-react';
 import { Helpers } from '../common/Helpers';
-import { Page } from '../common/Page';
+import { Container } from '../common/Container';
 import { toast } from 'react-toastify';
 
 const AddArticle: BaseFunctionComponent = () => {
@@ -78,7 +78,12 @@ const AddArticle: BaseFunctionComponent = () => {
   };
 
   return (
-    <Page>
+    <Container
+      className={'mb-4'}
+      style={{
+        width: '100vw'
+      }}
+    >
       {!user ? (
         <>
           <h2>Login Dummy</h2>
@@ -162,7 +167,7 @@ const AddArticle: BaseFunctionComponent = () => {
           </div>
         </div>
       )}
-    </Page>
+    </Container>
   );
 };
 
