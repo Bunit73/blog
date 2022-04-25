@@ -8,6 +8,7 @@ interface IArticle {
   createdAt: Timestamp;
   tagIds: number[];
   comments: string[];
+  id: string;
 }
 
 class Article implements IArticle {
@@ -18,6 +19,7 @@ class Article implements IArticle {
   titleImageBase: string;
   tagIds: number[];
   comments: string[];
+  id: string;
 
   constructor() {
     this.content = '';
@@ -27,6 +29,7 @@ class Article implements IArticle {
     this.titleImageBase = '';
     this.tagIds = [];
     this.comments = [];
+    this.id = '';
   }
 }
 

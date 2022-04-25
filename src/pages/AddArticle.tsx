@@ -68,6 +68,7 @@ const AddArticle: BaseFunctionComponent = () => {
     }
 
     formData.createdAt = Timestamp.now();
+    formData.id = Helpers.guids.createGuid();
 
     Helpers.fsDb
       .saveArticle(formData)

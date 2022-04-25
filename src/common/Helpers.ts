@@ -2,7 +2,7 @@ import { db } from '../config/firebaseConfig';
 import { Article } from '../models/Article';
 import { LookupItem } from '../models/LookupItem';
 import firebase from 'firebase/compat/app';
-import { Timestamp, collection, addDoc } from 'firebase/firestore';
+import { setDoc, collection, doc } from 'firebase/firestore';
 import moment from 'moment';
 
 export class Helpers {
@@ -102,13 +102,33 @@ export class Helpers {
     },
     async saveArticle(a: Article) {
       const articleRef = collection(db, 'Articles');
-      addDoc(articleRef, { ...a })
+      setDoc(doc(db, 'Articles', a.id), { ...a })
         .then(() => {
           return a;
         })
         .catch((err) => {
           return err;
         });
+    },
+    async getRecentArticles(count: number) {
+      const retval: Article[] = [];
+      const converter = {
+        toFirestore: (data: Article) => data,
+        fromFirestore: (snap: firebase.firestore.QueryDocumentSnapshot) => snap.data() as Article
+      };
+
+      const docs = await db
+        .collection('Articles')
+        .orderBy('createdAt', 'desc')
+        .withConverter(converter)
+        .limit(count)
+        .get();
+
+      docs.forEach((doc) => {
+        retval.push(doc.data());
+      });
+
+      return retval;
     }
   };
 }
