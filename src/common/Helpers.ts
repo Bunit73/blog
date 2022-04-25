@@ -101,8 +101,7 @@ export class Helpers {
       }
     },
     async saveArticle(a: Article) {
-      const articleRef = collection(db, 'Articles');
-      setDoc(doc(db, 'Articles', a.id), { ...a })
+      setDoc(doc(db, 'Articles', a.friendlyUrl), { ...a })
         .then(() => {
           return a;
         })

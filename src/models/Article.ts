@@ -9,6 +9,7 @@ interface IArticle {
   tagIds: number[];
   comments: string[];
   id: string;
+  friendlyUrl: string;
 }
 
 class Article implements IArticle {
@@ -20,6 +21,7 @@ class Article implements IArticle {
   tagIds: number[];
   comments: string[];
   id: string;
+  friendlyUrl: string;
 
   constructor() {
     this.content = '';
@@ -30,6 +32,7 @@ class Article implements IArticle {
     this.tagIds = [];
     this.comments = [];
     this.id = '';
+    this.friendlyUrl = '';
   }
 }
 

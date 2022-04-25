@@ -26,7 +26,7 @@ const ArticlePreview: BaseFunctionComponent<{ post: Article }> = (props) => {
           );
         })}
         <h3 className="mb-0">
-          <Link to={`/post/${props.post.id}`}>
+          <Link to={`/post/${props.post.friendlyUrl}`}>
             <a className="text-dark">{props.post.title}</a>
           </Link>
         </h3>
@@ -34,7 +34,7 @@ const ArticlePreview: BaseFunctionComponent<{ post: Article }> = (props) => {
           {Helpers.dates.toLocalTime(props.post.createdAt.toDate())}
         </div>
         <p className="card-text mb-auto">{props.post.subtitle}</p>
-        <Link to={`/post/${props.post.id}`}>
+        <Link to={`/post/${props.post.friendlyUrl}`}>
           <a>{'Continue reading'}</a>
         </Link>
       </div>

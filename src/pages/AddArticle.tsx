@@ -170,6 +170,19 @@ const AddArticle: BaseFunctionComponent = () => {
               </div>
             </div>
           </div>
+          <div className="row mt-4">
+            <div className="col">
+              <label htmlFor="floatingInput">Friendly Url</label>
+              <input
+                id="friendlyUrl"
+                type="text"
+                name="friendlyUrl"
+                className="form-control"
+                value={formData.friendlyUrl}
+                onChange={(e) => handleChange(e)}
+              />
+            </div>
+          </div>
           {/* description */}
           <div className="row mt-4">
             <div className="col">
