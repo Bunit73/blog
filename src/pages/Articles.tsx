@@ -1,4 +1,3 @@
-import * as React from 'react';
 import { BaseFunctionComponent } from '../common/BaseComponent';
 
 const Articles: BaseFunctionComponent = () => {

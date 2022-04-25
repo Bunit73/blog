@@ -6,7 +6,7 @@ interface IArticle {
   content: string;
   titleImageBase: string;
   createdAt: Timestamp;
-  tags: string[];
+  tagIds: number[];
   comments: string[];
 }
 
@@ -16,7 +16,7 @@ class Article implements IArticle {
   title: string;
   subtitle: string;
   titleImageBase: string;
-  tags: string[];
+  tagIds: number[];
   comments: string[];
 
   constructor() {
@@ -25,7 +25,7 @@ class Article implements IArticle {
     this.title = '';
     this.subtitle = '';
     this.titleImageBase = '';
-    this.tags = [];
+    this.tagIds = [];
     this.comments = [];
   }
 }

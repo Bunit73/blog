@@ -7,18 +7,22 @@ import { Helpers } from '../common/Helpers';
 import parse from 'html-react-parser';
 import { Header } from '../common/Header';
 import './Post.scss';
+import { LookupItem } from '../models/LookupItem';
 
 const Post: BaseFunctionComponent = () => {
   const { id } = useParams();
   const [article, setArticle] = useState(new Article());
   const [loading, setLoading] = useState(true);
+  const [tags, setTags] = useState<LookupItem[]>([]);
 
   useEffect(() => {
+    Helpers.lookups.getLookupList('Tags').then((d) => {
+      setTags(d);
+    });
     if (id) {
       setLoading(true);
       Helpers.fsDb.getArticle(id ? id : '').then((d) => {
         setArticle(d);
-        console.log(d);
         setLoading(false);
       });
     }
@@ -33,6 +37,19 @@ const Post: BaseFunctionComponent = () => {
         <>Loading</>
       ) : (
         <Container>
+          {article.tagIds.length > 0 && (
+            <div className="row">
+              <div className="col">
+                {article.tagIds.map((t, idx) => {
+                  return (
+                    <span key={idx} className="badge rounded-pill bg-primary m-2">
+                      {Helpers.lookups.getLookupVal(t, tags)}
+                    </span>
+                  );
+                })}
+              </div>
+            </div>
+          )}
           <main className="border-top border-dark post p-2 mb-4">
             <Container>
               <div className="mb-4">

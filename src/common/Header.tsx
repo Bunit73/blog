@@ -29,7 +29,8 @@ const Header: BaseFunctionComponent = () => {
               strokeWidth="2"
               className="mx-3"
               role="img"
-              viewBox="0 0 24 24">
+              viewBox="0 0 24 24"
+            >
               <title>Search</title>
               <circle cx="10.5" cy="10.5" r="7.5" />
               <path d="M21 21l-5.2-5.2" />

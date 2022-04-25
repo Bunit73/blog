@@ -1,4 +1,3 @@
-import * as React from 'react';
 import { BaseFunctionComponent } from '../common/BaseComponent';
 import { Config } from '../config/Config';
 import { useContext, useState, useEffect } from 'react';
@@ -8,19 +7,40 @@ import { Editor } from '@tinymce/tinymce-react';
 import { Helpers } from '../common/Helpers';
 import { Container } from '../common/Container';
 import { toast } from 'react-toastify';
+import { LookupItem } from '../models/LookupItem';
+import { Timestamp } from 'firebase/firestore';
 
 const AddArticle: BaseFunctionComponent = () => {
   const user = useContext(AuthContext);
 
   useEffect(() => {
-    Helpers.lookups.getLookupList('Tags');
+    Helpers.lookups.getLookupList('Tags').then((d) => {
+      setTags(d);
+    });
   }, []);
 
   const [formData, setFormData] = useState(new Article());
+  const [tags, setTags] = useState<LookupItem[]>([]);
   const [saving, setSaving] = useState(false);
 
   const handleChange = (e: any) => {
     setFormData({ ...formData, [e.target.name]: e.target.value });
+  };
+
+  const addFormTags = (id: number) => {
+    const form = { ...formData };
+    Object.assign(form, formData);
+    form.tagIds.push(id);
+    setFormData(form);
+  };
+
+  const removeFormTags = (id: number) => {
+    const form = { ...formData };
+    Object.assign(form, formData);
+    form.tagIds = form.tagIds.filter((x) => {
+      x !== id;
+    });
+    setFormData(form);
   };
 
   const handleContentChange = (e: string) => {
@@ -46,6 +66,8 @@ const AddArticle: BaseFunctionComponent = () => {
       setSaving(false);
       return;
     }
+
+    formData.createdAt = Timestamp.now();
 
     Helpers.fsDb
       .saveArticle(formData)
@@ -117,6 +139,34 @@ const AddArticle: BaseFunctionComponent = () => {
                 value={formData.subtitle}
                 onChange={(e) => handleChange(e)}
               />
+            </div>
+          </div>
+          <div className="row mt-4">
+            <div className="col">
+              <label htmlFor="floatingInput">Tags</label>
+              <div className="row">
+                <div className="col">
+                  {tags.map((t) => {
+                    return (
+                      <div key={t.id} className="form-check form-check-inline">
+                        <input
+                          className="form-check-input"
+                          type="checkbox"
+                          onChange={(e) => {
+                            if (e.target.checked) {
+                              addFormTags(t.id);
+                            } else {
+                              removeFormTags(t.id);
+                            }
+                          }}
+                          checked={formData.tagIds.indexOf(t.id) > -1}
+                        />
+                        <label className="form-check-label">{t.val}</label>
+                      </div>
+                    );
+                  })}
+                </div>
+              </div>
             </div>
           </div>
           {/* description */}

@@ -8,7 +8,6 @@ import moment from 'moment';
 export class Helpers {
   static dates = {
     toLocalTime(date: Date): string {
-      console.log(date);
       return moment(date).format('MMM Do YY');
     }
   };
@@ -33,25 +32,22 @@ export class Helpers {
         fromFirestore: (snap: firebase.firestore.QueryDocumentSnapshot) => snap.data() as LookupItem
       };
 
-      const docs = await db
-        .collection(listId)
-        .withConverter(converter)
-        //.doc(id)
-        .get();
+      const docs = await db.collection(listId).withConverter(converter).get();
 
       docs.forEach((doc) => {
         retval.push(doc.data());
       });
 
-      console.log(retval);
+      return retval;
+    },
 
-      // const article = doc.data();
-
-      /*if(article){
-        return article;
-      } else {
-        return new Article();
-      }*/
+    getLookupVal(id: number, lookupList: LookupItem[]): string {
+      for (const x of lookupList) {
+        if (x.id === id) {
+          return x.val;
+        }
+      }
+      return '';
     }
   };
 
