@@ -27,7 +27,7 @@ export class Helpers {
 
   static lookups = {
     async getLookupList(listId: string) {
-      let retval: LookupItem[] = [];
+      const retval: LookupItem[] = [];
       const converter = {
         toFirestore: (data: LookupItem) => data,
         fromFirestore: (snap: firebase.firestore.QueryDocumentSnapshot) => snap.data() as LookupItem
@@ -48,10 +48,10 @@ export class Helpers {
       // const article = doc.data();
 
       /*if(article){
-				return article;
-			} else {
-				return new Article();
-			}*/
+        return article;
+      } else {
+        return new Article();
+      }*/
     }
   };
 

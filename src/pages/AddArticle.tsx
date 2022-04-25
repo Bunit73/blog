@@ -82,8 +82,7 @@ const AddArticle: BaseFunctionComponent = () => {
       className={'mb-4'}
       style={{
         width: '100vw'
-      }}
-    >
+      }}>
       {!user ? (
         <>
           <h2>Login Dummy</h2>
@@ -159,8 +158,7 @@ const AddArticle: BaseFunctionComponent = () => {
               <button
                 className="btn btn-lg btn-primary w-100"
                 onClick={handlePublish}
-                disabled={saving}
-              >
+                disabled={saving}>
                 {!saving ? <>Publish</> : <>Saving</>}
               </button>
             </div>
