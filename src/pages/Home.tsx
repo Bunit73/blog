@@ -3,6 +3,7 @@ import { BaseFunctionComponent } from '../common/BaseComponent';
 import { Container } from '../common/Container';
 import { Header } from '../common/Header';
 import { Helpers } from '../common/Helpers';
+import { LoadingSpinner } from '../common/LoadingSpinner';
 import { Article } from '../models/Article';
 import { ArticlePreview } from './ArticlePreview';
 
@@ -38,7 +39,7 @@ const Home: BaseFunctionComponent = () => {
         </Container>
         <Container>
           {loading ? (
-            <div>Loading..</div>
+            <LoadingSpinner />
           ) : (
             <>
               {posts.map((p) => {
