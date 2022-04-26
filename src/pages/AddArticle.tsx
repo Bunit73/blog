@@ -196,8 +196,9 @@ const AddArticle: BaseFunctionComponent = () => {
                   apiKey: Config.tinyApiKey,
                   height: 500,
                   menubar: 'tools',
-                  plugins: 'code',
-                  toolbar: 'code',
+                  plugins: 'code lists image link paste table',
+                  toolbar:
+                    'undo redo | bold italic | alignleft aligncenter alignright | bullist numlist | code | removeformat | link | image | forecolor, table',
                   content_style: 'body { font-family:Helvetica,Arial,sans-serif; font-size:14px }'
                 }}
               />
