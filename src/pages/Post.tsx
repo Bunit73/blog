@@ -8,6 +8,7 @@ import parse from 'html-react-parser';
 import { Header } from '../common/Header';
 import './Post.scss';
 import { LookupItem } from '../models/LookupItem';
+import { LoadingSpinner } from '../common/LoadingSpinner';
 
 const Post: BaseFunctionComponent = () => {
   const { id } = useParams();
@@ -30,45 +31,47 @@ const Post: BaseFunctionComponent = () => {
 
   return (
     <>
-      <Container>
-        <Header />
-      </Container>
       {loading ? (
-        <>Loading</>
+        <LoadingSpinner />
       ) : (
-        <Container className="containter-md">
-          {article.tagIds.length > 0 && (
-            <div className="row">
-              <div className="col">
-                {article.tagIds.map((t, idx) => {
-                  return (
-                    <span key={idx} className="badge rounded-pill bg-primary m-2">
-                      {Helpers.lookups.getLookupVal(t, tags)}
-                    </span>
-                  );
-                })}
-              </div>
-            </div>
-          )}
-          <main className="border-top border-dark post p-4 mb-4">
-            <Container>
-              <div className="mb-4">
-                <h1 className="display-4 fst-italic">{article.title}</h1>
-                <h2 className="lead">{article.subtitle}</h2>
-                <small>{Helpers.dates.toLocalTime(article.createdAt.toDate())}</small>
-                <div className="d-flex align-items-center justify-content-center px-0">
-                  <img
-                    src={article.titleImageBase}
-                    alt={article.title}
-                    className={'rounded hero-img'}
-                  />
+        <>
+          <Container>
+            <Header />
+          </Container>
+          <Container className="containter-md">
+            {article.tagIds.length > 0 && (
+              <div className="row">
+                <div className="col">
+                  {article.tagIds.map((t, idx) => {
+                    return (
+                      <span key={idx} className="badge rounded-pill bg-primary m-2">
+                        {Helpers.lookups.getLookupVal(t, tags)}
+                      </span>
+                    );
+                  })}
                 </div>
               </div>
-            </Container>
-            <hr />
-            <Container>{parse(article.content)}</Container>
-          </main>
-        </Container>
+            )}
+            <main className="border-top border-dark post p-4 mb-4">
+              <Container>
+                <div className="mb-4">
+                  <h1 className="display-4 fst-italic">{article.title}</h1>
+                  <h2 className="lead">{article.subtitle}</h2>
+                  <small>{Helpers.dates.toLocalTime(article.createdAt.toDate())}</small>
+                  <div className="d-flex align-items-center justify-content-center px-0">
+                    <img
+                      src={article.titleImageBase}
+                      alt={article.title}
+                      className={'rounded hero-img'}
+                    />
+                  </div>
+                </div>
+              </Container>
+              <hr />
+              <Container>{parse(article.content)}</Container>
+            </main>
+          </Container>
+        </>
       )}
     </>
   );

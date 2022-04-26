@@ -35,7 +35,7 @@ const ArticlePreview: BaseFunctionComponent<{ post: Article }> = (props) => {
         </div>
         <p className="card-text mb-auto">{props.post.subtitle}</p>
         <Link to={`/post/${props.post.friendlyUrl}`}>
-          <a>{'Continue reading'}</a>
+          <a>{'Read More →'}</a>
         </Link>
       </div>
       <img
