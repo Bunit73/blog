@@ -36,7 +36,7 @@ const Post: BaseFunctionComponent = () => {
       {loading ? (
         <>Loading</>
       ) : (
-        <Container>
+        <Container className="containter-md">
           {article.tagIds.length > 0 && (
             <div className="row">
               <div className="col">
@@ -50,12 +50,13 @@ const Post: BaseFunctionComponent = () => {
               </div>
             </div>
           )}
-          <main className="border-top border-dark post p-2 mb-4">
+          <main className="border-top border-dark post p-4 mb-4">
             <Container>
               <div className="mb-4">
                 <h1 className="display-4 fst-italic">{article.title}</h1>
                 <h2 className="lead">{article.subtitle}</h2>
-                <div className="col px-0">
+                <small>{Helpers.dates.toLocalTime(article.createdAt.toDate())}</small>
+                <div className="d-flex align-items-center justify-content-center px-0">
                   <img
                     src={article.titleImageBase}
                     alt={article.title}
@@ -65,10 +66,7 @@ const Post: BaseFunctionComponent = () => {
               </div>
             </Container>
             <hr />
-            <Container>
-              <div>{Helpers.dates.toLocalTime(article.createdAt.toDate())}</div>
-              {parse(article.content)}
-            </Container>
+            <Container>{parse(article.content)}</Container>
           </main>
         </Container>
       )}
