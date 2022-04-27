@@ -76,7 +76,7 @@ const EditArticle: BaseFunctionComponent = () => {
       return;
     }
 
-    formData.createdAt = Timestamp.now();
+    formData.editedAt = Timestamp.now();
     formData.id = Helpers.guids.createGuid();
 
     Helpers.fsDb
