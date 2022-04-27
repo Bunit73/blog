@@ -1,4 +1,5 @@
 import { useEffect, useState } from 'react';
+import { ArticlePreview } from '../common/ArticlePreview';
 import { BaseFunctionComponent } from '../common/BaseComponent';
 import { Container } from '../common/Container';
 import { Header } from '../common/Header';
@@ -6,7 +7,6 @@ import { Helpers } from '../common/Helpers';
 import { LoadingSpinner } from '../common/LoadingSpinner';
 import { Nav } from '../common/Nav';
 import { Article } from '../models/Article';
-import { ArticlePreview } from './ArticlePreview';
 
 const Home: BaseFunctionComponent = () => {
   const [loading, setLoading] = useState(true);

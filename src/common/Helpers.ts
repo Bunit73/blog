@@ -4,6 +4,7 @@ import { LookupItem } from '../models/LookupItem';
 import firebase from 'firebase/compat/app';
 import { setDoc, collection, doc } from 'firebase/firestore';
 import moment from 'moment';
+import crypto from 'crypto-js';
 
 export class Helpers {
   static dates = {
@@ -150,6 +151,13 @@ export class Helpers {
       console.log(retval);
 
       return retval;
+    }
+  };
+
+  static colors = {
+    stringToColor(str: string): string {
+      // https://stackoverflow.com/questions/3426404/create-a-hexadecimal-colour-based-on-a-string-with-javascript
+      return '#' + crypto.MD5(str).toString().substring(0, 6);
     }
   };
 }

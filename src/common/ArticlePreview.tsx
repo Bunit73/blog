@@ -5,6 +5,7 @@ import './ArticlePreview.scss';
 import { Link } from 'react-router-dom';
 import { useEffect, useState } from 'react';
 import { LookupItem } from '../models/LookupItem';
+import { TagBadge } from './TagBadge';
 
 const ArticlePreview: BaseFunctionComponent<{ post: Article }> = (props) => {
   const [tags, setTags] = useState<LookupItem[]>([]);
@@ -18,13 +19,17 @@ const ArticlePreview: BaseFunctionComponent<{ post: Article }> = (props) => {
   return (
     <div className="card flex-md-row mb-4 box-shadow h-md-250">
       <div className="card-body d-flex flex-column align-items-start">
-        {props.post.tagIds.map((t, idx) => {
-          return (
-            <strong key={idx} className="d-inline-block mb-2 text-primary">
-              {Helpers.lookups.getLookupVal(t, tags)}
-            </strong>
-          );
-        })}
+        <div>
+          {props.post.tagIds.map((t, idx) => {
+            return (
+              <TagBadge
+                className={'margin-right-10'}
+                text={Helpers.lookups.getLookupVal(t, tags)}
+                key={idx}
+              />
+            );
+          })}
+        </div>
         <h3 className="mb-0">
           <Link className="text-dark" to={`/post/${props.post.friendlyUrl}`}>
             {props.post.title}

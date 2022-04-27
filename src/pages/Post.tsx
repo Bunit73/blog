@@ -9,6 +9,7 @@ import { Header } from '../common/Header';
 import './Post.scss';
 import { LookupItem } from '../models/LookupItem';
 import { LoadingSpinner } from '../common/LoadingSpinner';
+import { TagBadge } from '../common/TagBadge';
 
 const Post: BaseFunctionComponent = () => {
   const { id } = useParams();
@@ -43,11 +44,7 @@ const Post: BaseFunctionComponent = () => {
               <div className="row">
                 <div className="col">
                   {article.tagIds.map((t, idx) => {
-                    return (
-                      <span key={idx} className="badge rounded-pill bg-primary m-2">
-                        {Helpers.lookups.getLookupVal(t, tags)}
-                      </span>
-                    );
+                    return <TagBadge key={idx} text={Helpers.lookups.getLookupVal(t, tags)} />;
                   })}
                 </div>
               </div>
