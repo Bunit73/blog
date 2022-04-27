@@ -26,17 +26,15 @@ const ArticlePreview: BaseFunctionComponent<{ post: Article }> = (props) => {
           );
         })}
         <h3 className="mb-0">
-          <Link to={`/post/${props.post.friendlyUrl}`}>
-            <a className="text-dark">{props.post.title}</a>
+          <Link className="text-dark" to={`/post/${props.post.friendlyUrl}`}>
+            {props.post.title}
           </Link>
         </h3>
         <div className="mb-1 text-muted">
           {Helpers.dates.toLocalTime(props.post.createdAt.toDate())}
         </div>
         <p className="card-text mb-auto">{props.post.subtitle}</p>
-        <Link to={`/post/${props.post.friendlyUrl}`}>
-          <a>{'Read More →'}</a>
-        </Link>
+        <Link to={`/post/${props.post.friendlyUrl}`}>{'Read More →'}</Link>
       </div>
       <img
         className="card-img-right flex-auto d-none d-md-block preview-img rounded"

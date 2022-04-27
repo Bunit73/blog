@@ -13,7 +13,10 @@ const MainRouter: BaseFunctionComponent = () => {
       <Routes>
         <Route path="/" element={<Home />} />
         <Route path="/login" element={<Login />} />
-        <Route path="/articles" element={<Articles />} />
+        <Route path="posts">
+          <Route path=":tag" element={<Articles />} />
+          <Route path="" element={<Articles />} />
+        </Route>
         <Route path="/post/:id" element={<Post />} />
         <Route path="/edit/:id" element={<EditArticle />} />
         <Route path="/add" element={<AddArticle />} />

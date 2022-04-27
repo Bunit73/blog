@@ -128,6 +128,28 @@ export class Helpers {
       });
 
       return retval;
+    },
+    async getArticlesByTagId(tag: number) {
+      const retval: Article[] = [];
+      const converter = {
+        toFirestore: (data: Article) => data,
+        fromFirestore: (snap: firebase.firestore.QueryDocumentSnapshot) => snap.data() as Article
+      };
+
+      const docs = await db
+        .collection('Articles')
+        .where('tagIds', 'array-contains', tag)
+        .orderBy('createdAt', 'desc')
+        .withConverter(converter)
+        .get();
+
+      docs.forEach((doc) => {
+        retval.push(doc.data());
+      });
+
+      console.log(retval);
+
+      return retval;
     }
   };
 }
