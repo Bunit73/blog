@@ -39,7 +39,15 @@ const Home: BaseFunctionComponent = () => {
         </Container>
         <Container>
           {loading ? (
-            <LoadingSpinner />
+            <div className="row mt-5">
+              <div className="col d-flex justify-content-between">
+                <LoadingSpinner />
+                <LoadingSpinner />
+                <LoadingSpinner />
+                <LoadingSpinner />
+                <LoadingSpinner />
+              </div>
+            </div>
           ) : (
             <>
               {posts.map((p) => {
