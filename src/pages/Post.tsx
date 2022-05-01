@@ -39,12 +39,18 @@ const Post: BaseFunctionComponent = () => {
           <Container>
             <Header />
           </Container>
-          <Container className="containter-md">
+          <Container className="container-md">
             {article.tagIds.length > 0 && (
-              <div className="row">
+              <div className="row p-2">
                 <div className="col">
                   {article.tagIds.map((t, idx) => {
-                    return <TagBadge key={idx} text={Helpers.lookups.getLookupVal(t, tags)} />;
+                    return (
+                      <TagBadge
+                        className={'margin-right-10'}
+                        key={idx}
+                        text={Helpers.lookups.getLookupVal(t, tags)}
+                      />
+                    );
                   })}
                 </div>
               </div>

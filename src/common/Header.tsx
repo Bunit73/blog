@@ -11,7 +11,7 @@ const Header: BaseFunctionComponent = () => {
           </a> */}
         </div>
         <div className="col-4 text-center">
-          <a className="blog-header-logo text-dark" href="/">
+          <a className="blog-header-logo text-dark text-nowrap" href="/">
             {`Ben's Blog`}
           </a>
         </div>
